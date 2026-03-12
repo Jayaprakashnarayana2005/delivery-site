@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Connection Test</title>
+</head>
+<body>
+    <h2>Admin Connection Test</h2>
+    <div id="testResults"></div>
+    
+    <script>
+        function testConnection() {
+            const results = [];
+            
+            // Test 1: Check localStorage
+            results.push('Test 1: localStorage available: ' + (typeof localStorage !== 'undefined'));
+            
+            // Test 2: Check admins data
+            const admins = JSON.parse(localStorage.getItem('admins')) || [];
+            results.push('Test 2: Admins found: ' + admins.length);
+            
+            // Test 3: Check current admin session
+            const currentAdmin = JSON.parse(localStorage.getItem('currentAdmin'));
+            results.push('Test 3: Current admin: ' + (currentAdmin ? currentAdmin.email : 'None'));
+            
+            // Test 4: Check data sync
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            results.push('Test 4: Orders in system: ' + orders.length);
+            
+            // Display results
+            document.getElementById('testResults').innerHTML = results.map(r => `<p>${r}</p>`).join('');
+        }
+        
+        testConnection();
+    </script>
+</body>
+</html>

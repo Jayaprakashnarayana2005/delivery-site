@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FoodieExpress</title>
+    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-utensils"></i>
+                <h2>FoodieExpress</h2>
+                <p>Admin Panel</p>
+            </div>
+            
+            <div class="admin-profile">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=667eea&color=fff&size=100" alt="Admin">
+                <h3 id="adminName">Admin User</h3>
+                <p id="adminRole">Super Admin</p>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="active" onclick="switchDashboardTab('overview')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Overview</span>
+                </li>
+                <li onclick="switchDashboardTab('restaurants')">
+                    <i class="fas fa-store"></i>
+                    <span>Restaurants</span>
+                </li>
+                <li onclick="switchDashboardTab('menu')">
+                    <i class="fas fa-utensils"></i>
+                    <span>Menu Items</span>
+                </li>
+                <li onclick="switchDashboardTab('orders')">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Orders</span>
+                </li>
+                <li onclick="switchDashboardTab('users')">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </li>
+                <li onclick="switchDashboardTab('delivery')">
+                    <i class="fas fa-truck"></i>
+                    <span>Delivery Partners</span>
+                </li>
+                <li onclick="switchDashboardTab('payments')">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Payments</span>
+                </li>
+                <li onclick="switchDashboardTab('reports')">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reports</span>
+                </li>
+                <li onclick="switchDashboardTab('settings')">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </li>
+                <li onclick="logoutAdmin()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="menu-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="top-bar-right">
+                    <div class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="admin-dropdown">
+                        <img src="https://ui-avatars.com/api/?name=Admin+User&background=667eea&color=fff&size=40" alt="Admin">
+                        <span id="adminNameSmall">Admin</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Tabs -->
+            <div id="overviewTab" class="dashboard-tab active">
+                <h1 class="page-title">Dashboard Overview</h1>
+                
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-store"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Total Restaurants</h3>
+                            <p id="totalRestaurants">24</p>
+                            <span>+3 this week</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Menu Items</h3>
+                            <p id="totalMenuItems">156</p>
+                            <span>+12 this week</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Today's Orders</h3>
+                            <p id="todayOrders">48</p>
+                            <span>+8 vs yesterday</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Total Users</h3>
+                            <p id="totalUsers">1,248</p>
+                            <span>+124 this month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Today's Revenue</h3>
+                            <p id="todayRevenue">₹45,678</p>
+                            <span>+12.5%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Active Deliveries</h3>
+                            <p id="activeDeliveries">18</p>
+                            <span>12 completed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Order Trends</h3>
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Revenue Breakdown</h3>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="recent-orders">
+                    <h3>Recent Orders</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Restaurant</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentOrdersTable">
+                            <tr>
+                                <td>#ORD001</td>
+                                <td>John Doe</td>
+                                <td>Pizza Paradise</td>
+                                <td>₹899</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td><button class="action-btn">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>#ORD002</td>
+                                <td>Jane Smith</td>
+                                <td>Burger King</td>
+                                <td>₹549</td>
+                                <td><span class="status-badge preparing">Preparing</span></td>
+                                <td><button class="action-btn">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>#ORD003</td>
+                                <td>Mike Johnson</td>
+                                <td>Sushi Master</td>
+                                <td>₹1,299</td>
+                                <td><span class="status-badge delivered">Delivered</span></td>
+                                <td><button class="action-btn">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button onclick="showAddRestaurantModal()">
+                            <i class="fas fa-plus"></i> Add Restaurant
+                        </button>
+                        <button onclick="showAddMenuItemModal()">
+                            <i class="fas fa-plus"></i> Add Menu Item
+                        </button>
+                        <button onclick="showAddUserModal()">
+                            <i class="fas fa-user-plus"></i> Add User
+                        </button>
+                        <button onclick="generateReport()">
+                            <i class="fas fa-file-pdf"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Restaurants Tab -->
+            <div id="restaurantsTab" class="dashboard-tab">
+                <div class="tab-header">
+                    <h1 class="page-title">Manage Restaurants</h1>
+                    <button class="add-btn" onclick="showAddRestaurantModal()">
+                        <i class="fas fa-plus"></i> Add Restaurant
+                    </button>
+                </div>
+                
+                <div class="filter-bar">
+                    <input type="text" placeholder="Search restaurants..." id="restaurantSearch">
+                    <select id="restaurantStatus">
+                        <option value="all">All Status</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Restaurant</th>
+                            <th>Cuisine</th>
+                            <th>Rating</th>
+                            <th>Total Orders</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="restaurantsTable">
+                        <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Menu Items Tab -->
+            <div id="menuTab" class="dashboard-tab">
+                <div class="tab-header">
+                    <h1 class="page-title">Manage Menu Items</h1>
+                    <button class="add-btn" onclick="showAddMenuItemModal()">
+                        <i class="fas fa-plus"></i> Add Item
+                    </button>
+                </div>
+                
+                <div class="filter-bar">
+                    <input type="text" placeholder="Search menu items..." id="menuSearch">
+                    <select id="menuRestaurant">
+                        <option value="all">All Restaurants</option>
+                    </select>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Restaurant</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="menuTable">
+                        <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Users Tab -->
+            <div id="usersTab" class="dashboard-tab">
+                <div class="tab-header">
+                    <h1 class="page-title">Manage Users</h1>
+                    <button class="add-btn" onclick="showAddUserModal()">
+                        <i class="fas fa-plus"></i> Add User
+                    </button>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Orders</th>
+                            <th>Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTable">
+                        <!-- Dynamic content will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Restaurant Modal -->
+    <div id="addRestaurantModal" class="admin-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addRestaurantModal')">&times;</span>
+            <h2>Add New Restaurant</h2>
+            <form id="addRestaurantForm" onsubmit="addRestaurant(event)">
+                <div class="form-group">
+                    <label>Restaurant Name</label>
+                    <input type="text" id="restaurantName" required>
+                </div>
+                <div class="form-group">
+                    <label>Cuisine Type</label>
+                    <input type="text" id="restaurantCuisine" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="restaurantDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="url" id="restaurantImage" required>
+                </div>
+                <div class="form-group">
+                    <label>Min Order Amount</label>
+                    <input type="number" id="restaurantMinOrder" required>
+                </div>
+                <div class="form-group">
+                    <label>Delivery Time (minutes)</label>
+                    <input type="text" id="restaurantDeliveryTime" required>
+                </div>
+                <button type="submit" class="submit-btn">Add Restaurant</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Menu Item Modal -->
+    <div id="addMenuItemModal" class="admin-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addMenuItemModal')">&times;</span>
+            <h2>Add Menu Item</h2>
+            <form id="addMenuItemForm" onsubmit="addMenuItem(event)">
+                <div class="form-group">
+                    <label>Restaurant</label>
+                    <select id="menuRestaurantId" required>
+                        <option value="">Select Restaurant</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="menuCategoryId" required>
+                        <option value="">Select Category</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Item Name</label>
+                    <input type="text" id="menuItemName" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="menuItemDescription" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Price (₹)</label>
+                    <input type="number" id="menuItemPrice" required>
+                </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="url" id="menuItemImage" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="menuItemVeg"> Vegetarian
+                    </label>
+                </div>
+                <button type="submit" class="submit-btn">Add Item</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - FoodieExpress</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .menu-page {
+            padding-top: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 2rem 2rem;
+        }
+        .filter-section {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--primary-color);
+            background: transparent;
+            color: var(--primary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        .sort-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 2rem;
+        }
+        .sort-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-utensils"></i>
+                <span>FoodieExpress</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="../index.html">Home</a>
+                <a href="menu.html" class="active">Menu</a>
+                <a href="cart.html">Cart <span class="cart-count" id="cartCount">0</span></a>
+                <a href="orders.html">My Orders</a>
+            </div>
+            <div class="nav-auth" id="navAuth"></div>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="menu-page">
+        <h1 class="section-title">Our Menu</h1>
+        
+        <div class="filter-section">
+            <button class="filter-btn active" onclick="filterMenu('all')">All</button>
+            <button class="filter-btn" onclick="filterMenu(1)">Pizza</button>
+            <button class="filter-btn" onclick="filterMenu(2)">Burgers</button>
+            <button class="filter-btn" onclick="filterMenu(3)">Sushi</button>
+            <button class="filter-btn" onclick="filterMenu(4)">Pasta</button>
+        </div>
+
+        <div class="sort-section">
+            <select class="sort-select" onchange="sortMenu(this.value)">
+                <option value="default">Sort by</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="name">Name</option>
+            </select>
+        </div>
+
+        <div class="menu-grid" id="menuGrid"></div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

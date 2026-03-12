@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - FoodieExpress</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-utensils"></i>
+                <span>FoodieExpress</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="../index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="cart.html">Cart <span class="cart-count" id="cartCount">0</span></a>
+                <a href="orders.html" class="active">My Orders</a>
+            </div>
+            <div class="nav-auth" id="navAuth"></div>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div style="padding-top: 80px; max-width: 1200px; margin: 0 auto; padding: 80px 2rem 2rem;">
+        <h1 class="section-title">My Orders</h1>
+        
+        <div style="display: grid; gap: 1.5rem;" id="ordersContainer"></div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
